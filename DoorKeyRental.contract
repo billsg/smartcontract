@@ -1,0 +1,23 @@
+// DoorKeyRental contract
+// 1. creates a DataSharing record
+// 2. one record holds the following info : owner, request, deviceId and data 
+//
+// paul.orozco@gemalto.com
+//
+contract DoorKeyRental {
+    struct DataSharing {
+        string deviceId;
+        string data;
+    }
+
+    function sendTempKey(string deviceId, string data, string identifier) {
+        dataSharings[identifier] = DataSharing(deviceId, data);
+    }
+
+    function getDoorKey(string identifier) constant returns (string data) {
+        DataSharing dataSharing = dataSharings[identifier];
+        return dataSharing.data;
+    }
+    
+    mapping(string => DataSharing) dataSharings;
+}
